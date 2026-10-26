@@ -77,6 +77,12 @@ def main():
                         continue
                     if name not in skip:write(full,contents(name))
         export(args.ProjectRoot,project_revision,'Project/')
+        notices=json.loads((args.ProjectRoot/'LICENSES/DEPENDENCY-NOTICES.json').read_text())
+        exported={item['Path']:item['SHA256'] for item in inventory}
+        for notice in notices['Notices']:
+            path='Project/'+notice['NoticePath']
+            if exported.get(path,'').upper()!=notice['SHA256'].upper():
+                raise RuntimeError('Required license notice missing or changed in source export: '+path)
         export(args.SdkRoot,evidence['SdkRevision'],'ReXGlue/',patched)
         for path in patched:write('ReXGlue/'+path,(args.SdkRoot/path).read_bytes())
         for module in evidence['DependencyRevisions']:

@@ -49,3 +49,6 @@ reports/
 ppc_recomp.*.cpp
 ppc_recomp.*.h
 /experiments/
+
+# Upstream license text, not a compiled library.
+!LICENSES/dependencies/libmspack/COPYING.LIB
