@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Keep upstream notices and patch context byte-for-byte.
+LICENSE -text
+LICENSES/** -text
+*.patch -text

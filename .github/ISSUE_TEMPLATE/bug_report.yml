@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a reproducible problem with the Windows alpha
+title: "[Bug]: "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version / package
+      placeholder: v0.1.0-alpha.1
+    validations:
+      required: true
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Xbox 360 edition
+      description: European/PAL was tested. American/USA and Japanese editions are untested.
+      options:
+        - European / PAL (tested revision)
+        - American / USA (untested)
+        - Japanese (untested)
+        - Other / unknown
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: What happened and how to reproduce it
+      description: Include the area/checkpoint, expected behavior and steps. Mention whether it also happens at native 720p.
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Settings and optional hardware
+      description: Settings: internal scale, Default/ROV, anti-aliasing and input mode. CPU/GPU/RAM/driver details are optional; enable them under Diagnostics / privacy only if comfortable sharing.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics / screenshot / video
+      description: Use Diagnostics / privacy or Collect Diagnostics.cmd. Review the ZIP before sharing; it can include frame metrics and optional hardware. Do not upload game data, ISO files or personal saves.

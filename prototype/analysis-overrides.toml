@@ -1,0 +1,64 @@
+# Entry seeds evidenced by direct branches in the first diagnostic codegen.
+# Leave sizes to the analyzer; preserve all register-state defaults.
+# These hints require runtime validation and do not replace guest instructions.
+[functions]
+0x82314454 = { name = "sub_82314454" }
+0x82314458 = { name = "sub_82314458" }
+0x8244E628 = { name = "sub_8244E628" }
+# Observed as an indirect call target during the first D3D12 runtime test.
+0x825AF708 = { name = "sub_825AF708" }
+# Runtime target inside the original executable; analyze body before next run.
+0x826D3C20 = { name = "sub_826D3C20" }
+# Next observed runtime target, 2026-09-08 trace.
+0x826D3B48 = { name = "sub_826D3B48" }
+# Slot 44 of live object vtable 0x82053058 (runtime-20260908-222013.log).
+0x826D3C08 = { name = "sub_826D3C08" }
+# Next observed runtime call after restoring the two accessors.
+0x8272CC48 = { name = "sub_8272CC48" }
+# Observed on four guest threads after previous startup blockers were resolved.
+0x822E91F8 = { name = "sub_822E91F8" }
+# Indirect target reached through the thread dispatch routine above.
+0x829CDEE8 = { name = "sub_829CDEE8" }
+# Runtime-20260908-222713.log: target reached by four worker threads.
+0x822E9120 = { name = "sub_822E9120" }
+# Runtime target after worker dispatch initialization progressed.
+0x82446568 = { name = "sub_82446568" }
+# Runtime-20260909-083926.log, after bulk dispatch-thunk registration.
+0x823C11D0 = { name = "sub_823C11D0" }
+0x82403438 = { name = "sub_82403438" }
+# Runtime-20260909-084118.log.
+0x826DD020 = { name = "sub_826DD020" }
+# Runtime-20260909-084354.log: startup ran ~25s before this call.
+0x8275F860 = { name = "sub_8275F860" }
+# Runtime-20260909-084611.log, user confirmed Game Republic logo.
+0x828D1328 = { name = "sub_828D1328" }
+# Runtime-20260909-100502.log, reached after ~56s and an XMA warning.
+0x828F1B80 = { name = "sub_828F1B80" }
+# Runtime-20260909-101529.log; lis/addi/blr returns 0x82BF3B60.
+0x82446580 = { name = "sub_82446580" }
+# Runtime-20260909-102159.log: loading after opening cutscene.
+# lwz r3,36(r3); lwz r11,0(r3); lwz r10,28(r11); mtctr r10; bctr.
+0x824419F8 = { name = "sub_824419F8" }
+# Runtime-20260909-102959.log: stw r4,40(r3); blr.
+0x8243E898 = { name = "sub_8243E898" }
+# Runtime-20260909-104909.log: addi r3,r3,16; b 0x8243FD18.
+0x8236FC60 = { name = "sub_8236FC60" }
+# Runtime-20260909-105451.log: set bit 0x20 in the word at object+536.
+0x829BB268 = { name = "sub_829BB268" }
+# Runtime-20260909-111427.log: first confirmed gameplay; dispatch via r4.
+# lwz r12,0(r4); lwz r11,592(r12); mtctr r11; bctr.
+0x82285830 = { name = "sub_82285830" }
+# Runtime-20260909-112542.log: 82285620, another exact dispatch via r4.
+# Exhaustive exact scan found 20 matches, with these three entries missing.
+# Audit: reports/r4-dispatch.json. lwz r12,0(r4); lwz r11,slot(r12); mtctr; bctr.
+0x822855F0 = { name = "sub_822855F0" }
+0x82285620 = { name = "sub_82285620" }
+0x82285840 = { name = "sub_82285840" }
+# Runtime-20260909-113431.log: conditional branch 22F0 -> 22F8 emitted fatal
+# despite an existing label. Seed the routine starting after terminal bctr 22C0.
+0x822A22C4 = { name = "sub_822A22C4" }
+# Runtime-20260909-114909.log: unresolved conditional 238C -> 2394.
+# Seed next routine following terminal branch at 2348; also covers 2354 -> 23AC.
+0x822A234C = { name = "sub_822A234C" }
+# Menu idle crash, runtime-20260909-130458.log: addi r3,r3,-4; b 0x828D6A80.
+0x828D69F0 = { name = "sub_828D69F0" }

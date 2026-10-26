@@ -1,0 +1,20 @@
+diff --git a/src/core/logging.cpp b/src/core/logging.cpp
+index 1645848..f77b82e 100644
+--- a/src/core/logging.cpp
++++ b/src/core/logging.cpp
+@@ -9,6 +9,7 @@
+  *              See LICENSE file in the project root for full license text.
+  */
+ 
++#include "texture_warning_sink.h"
+ #include <algorithm>
+ #include <cctype>
+ #include <charconv>
+@@ -134,6 +135,7 @@ spdlog::level::level_enum ResolveCategoryLevel(const std::string& name) {
+ // Create a logger and register it
+ std::shared_ptr<spdlog::logger> CreateCategoryLogger(const std::string& name) {
+   auto sinks = BuildCategorySinks(name);
++  if (name == "gpu") sinks = {std::make_shared<majin::TextureWarningSink>(std::move(sinks))};
+   auto logger = std::make_shared<spdlog::logger>(name, sinks.begin(), sinks.end());
+   logger->set_level(ResolveCategoryLevel(name));
+   logger->flush_on(g_config.flush_level);

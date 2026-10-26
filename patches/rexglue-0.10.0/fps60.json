@@ -1,0 +1,13 @@
+{
+  "SdkRevision": "f5337cdc947ff6d4c4196737e2c807a48f2a1fc2",
+  "Files": [
+    {
+      "Path": "src/graphics/command_processor.cpp",
+      "NormalizedPatchedSHA256": "00E1F9A4287238D6EE08D9220070771BD4D6AF9CC1AF337DC43BCF8CD5A23395"
+    },
+    {
+      "Path": "src/graphics/graphics_system.cpp",
+      "NormalizedPatchedSHA256": "519E46FDF57C76864D2CF80D242C45732F7FB97B596BAE122F81D64A60ED4E78"
+    }
+  ]
+}

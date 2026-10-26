@@ -1,0 +1,49 @@
+diff --git a/src/audio/xma_context.cpp b/src/audio/xma_context.cpp
+index 11b83be..be5c053 100644
+--- a/src/audio/xma_context.cpp
++++ b/src/audio/xma_context.cpp
+@@ -9,6 +9,7 @@
+ * @modified    Tom Clay, 2026 - Adapted for ReXGlue runtime
+ */
+ 
++#include "empty_packet_recovery.h"
+ #include <algorithm>
+ #include <cstring>
+ 
+@@ -630,7 +631,29 @@ void XmaContext::Decode(XMA_CONTEXT_DATA* data) {
+                                                       packet_info.current_frame_size_);
+ 
+   if (bits_to_copy == 0) {
+-    REXAPU_ERROR("XmaContext {}: There are no bits to copy!", id());
++    if (auto next = majin::EmptyPacketSuccessor(
++            std::span<const uint8_t>(current_input_buffer, current_input_size),
++            uint32_t(packet_index), uint32_t(data->loop_count))) {
++      REXAPU_WARN("[Majin XMA recovery v2] context={} empty packet={} -> read={} (same buffer retained)",
++                  id(), packet_index, *next);
++      data->input_buffer_read_offset = *next;
++      return;
++    }
++    REXAPU_ERROR("[Majin XMA diagnostic v2] context={} packet={} recovery not applicable; next_in_buffer={} current_header={:02X}{:02X}{:02X}{:02X}",
++        id(), packet_index, next_packet_index < current_input_packet_count,
++        packet[0], packet[1], packet[2], packet[3]);
++    REXAPU_ERROR("[Majin XMA diagnostic v1] context={} guest={:08X} zero-copy: buffer={} ptr0={:08X} ptr1={:08X} valid0={} valid1={} packets0={} packets1={} read={} packet={} relative={} first={} frame_size={} frames={} frame={} remaining={} skip={} next={} loop_count={} loop_start={} loop_end={} output_valid={} output_read={} output_write={}",
++        id(), guest_ptr(), uint32_t(data->current_buffer),
++        data->input_buffer_0_ptr, data->input_buffer_1_ptr,
++        uint32_t(data->input_buffer_0_valid), uint32_t(data->input_buffer_1_valid),
++        uint32_t(data->input_buffer_0_packet_count), uint32_t(data->input_buffer_1_packet_count),
++        uint32_t(data->input_buffer_read_offset), packet_index, relative_offset,
++        packet_first_frame_offset, packet_info.current_frame_size_,
++        packet_info.frame_count_, packet_info.current_frame_, stream.BitsRemaining(),
++        skip_count, next_packet_index, uint32_t(data->loop_count),
++        uint32_t(data->loop_start), uint32_t(data->loop_end),
++        uint32_t(data->output_buffer_valid), uint32_t(data->output_buffer_read_offset),
++        uint32_t(data->output_buffer_write_offset));
+     SwapInputBuffer(data);
+     return;
+   }
+@@ -816,3 +839,5 @@ void XmaContext::ConvertFrame(const uint8_t** samples, bool is_two_channel,
+ }
+ 
+ }  // namespace rex::audio
++
++

@@ -1,0 +1,103 @@
+--- a/src/graphics/command_processor.cpp
++++ b/src/graphics/command_processor.cpp
+@@ -21,6 +21,14 @@
+ #include <rex/dbg.h>
+ #include <rex/perf/counter.h>
+ #include "release_frame_timing.h"
++#include "frame_deadline.h"
++#include <thread>
++#if defined(_WIN32)
++#ifndef NOMINMAX
++#define NOMINMAX
++#endif
++#include <windows.h>
++#endif
+ #include <rex/chrono/clock.h>
+ #include <rex/graphics/command_processor.h>
+ #include <rex/graphics/flags.h>
+@@ -37,6 +45,54 @@
+ #include <rex/system/user_module.h>
+ 
+ REXCVAR_DEFINE_BOOL(vsync, true, "GPU", "Enable vertical sync");
++
++namespace {
++class MajinFramePacer {
++ public:
++  ~MajinFramePacer() {
++#if defined(_WIN32)
++    if (timer_) CloseHandle(timer_);
++#endif
++  }
++  template<typename Running> void Wait(Running running) {
++    if (!rex::cvar::Query<bool>("majin_60fps")) return;
++    constexpr uint32_t fps = 60;
++    const auto frequency = rex::chrono::Clock::QueryHostTickFrequency();
++    auto now = rex::chrono::Clock::QueryHostTickCount();
++    const auto target = deadline_.Next(now, frequency, fps);
++#if defined(_WIN32)
++    if (!initialized_) {
++      initialized_ = true;
++      timer_ = CreateWaitableTimerExW(nullptr, nullptr, 0x00000002,
++                                     TIMER_MODIFY_STATE | SYNCHRONIZE);
++      if (!timer_) timer_ = CreateWaitableTimerExW(nullptr, nullptr, 0,
++                                     TIMER_MODIFY_STATE | SYNCHRONIZE);
++      REXGPU_INFO("[Majin 60 FPS] swap_limit={} waitable_timer={}", fps, bool(timer_));
++    }
++#endif
++    while (running() && now < target) {
++      const auto remaining = target - now;
++#if defined(_WIN32)
++      LARGE_INTEGER due;
++      due.QuadPart = -int64_t(std::max(uint64_t(1), remaining * 10000000 / frequency));
++      if (timer_ && SetWaitableTimer(timer_, &due, 0, nullptr, nullptr, FALSE))
++        WaitForSingleObject(timer_, 40);
++      else
++#endif
++        std::this_thread::sleep_for(std::chrono::microseconds(
++            std::max(uint64_t(1), remaining * 1000000 / frequency)));
++      now = rex::chrono::Clock::QueryHostTickCount();
++    }
++  }
++ private:
++  majin::timing::SwapDeadline deadline_;
++#if defined(_WIN32)
++  HANDLE timer_ = nullptr;
++  bool initialized_ = false;
++#endif
++};
++} // namespace
++
+ 
+ REXCVAR_DEFINE_BOOL(clear_memory_page_state, true, "GPU",
+                     "Refresh page-valid state from GPU-written memory at frame end. "
+@@ -930,6 +986,10 @@
+ bool CommandProcessor::ExecutePacketType3_XE_SWAP(memory::RingBuffer* reader, uint32_t packet,
+                                                   uint32_t count) {
+   SCOPE_profile_cpu_f("gpu");
++  // Opt-in cap before measurement. The same cadence reaches the guest
++  // through the existing GPU queue; no audio or virtual time scaling.
++  static MajinFramePacer frame_pacer;
++  frame_pacer.Wait([this] { return bool(worker_running_); });
+ 
+ #if !defined(REXGLUE_ENABLE_PERF_COUNTERS)
+   // Majin: CSV recording and a window-title counter are independent. No overlay
+--- a/src/graphics/graphics_system.cpp
++++ b/src/graphics/graphics_system.cpp
+@@ -157,11 +157,16 @@
+         uint64_t vsync_interval_ticks =
+             std::max(uint64_t(1), uint64_t(double(guest_tick_frequency) / refresh_rate_hz));
+         uint64_t no_vsync_interval_ticks = std::max(uint64_t(1), guest_tick_frequency / 1000);
++        const bool mode_60 = rex::cvar::Query<bool>("majin_60fps");
++        const uint64_t mode_60_interval_ticks =
++            std::max(uint64_t(1), guest_tick_frequency / uint64_t(120));
++        if (mode_60) REXGPU_INFO("[Majin 60 FPS] guest_vblank_hz=120; guest/audio clocks unchanged");
+         uint64_t last_frame_time = chrono::Clock::QueryGuestTickCount();
+         while (vsync_worker_running_) {
+           uint64_t current_time = chrono::Clock::QueryGuestTickCount();
+           uint64_t interval_ticks =
+-              REXCVAR_GET(vsync) ? vsync_interval_ticks : no_vsync_interval_ticks;
++              mode_60 ? mode_60_interval_ticks :
++              (REXCVAR_GET(vsync) ? vsync_interval_ticks : no_vsync_interval_ticks);
+           while (current_time - last_frame_time >= interval_ticks) {
+             MarkVblank();
+             last_frame_time += interval_ticks;

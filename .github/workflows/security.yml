@@ -1,0 +1,53 @@
+name: Security audit
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  security-audit:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Scan all reachable history with pinned Gitleaks
+        shell: pwsh
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP 'gitleaks.zip'
+          $tool = Join-Path $env:RUNNER_TEMP 'gitleaks'
+          Invoke-WebRequest 'https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_windows_x64.zip' -OutFile $zip
+          if ((Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant() -ne 'd29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e') { throw 'Scanner checksum mismatch' }
+          Expand-Archive -LiteralPath $zip -DestinationPath $tool
+          & "$tool/gitleaks.exe" git . '--log-opts=--all' '--redact=100' --no-banner
+          if ($LASTEXITCODE) { throw 'Secret scan failed' }
+      - name: Check privacy patterns
+        run: python scripts/check-public-privacy.py --Root . --History
+      - name: Exercise malformed disc input and process arguments
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-security.ps1
+      - name: Exercise authored timing boundary helpers
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-frame-timing.ps1
+      - name: Check legacy and candidate native capability
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-frame-capability.ps1
+      - name: Check source export binary exclusions
+        run: python scripts/test-source-export-policy.py
+      - name: Build native launcher from source
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-launcher.ps1
+  codeql-launcher:
+    if: github.event.repository.private == false
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+        with:
+          languages: c-cpp
+          build-mode: manual
+      - name: Compile the standalone native launcher
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-launcher.ps1
+      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370

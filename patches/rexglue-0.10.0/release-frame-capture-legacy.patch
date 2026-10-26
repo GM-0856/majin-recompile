@@ -1,0 +1,37 @@
+--- a/src/graphics/command_processor.cpp
++++ b/src/graphics/command_processor.cpp
+@@ -930,6 +930,34 @@
+                                                   uint32_t count) {
+   SCOPE_profile_cpu_f("gpu");
+
++#if !defined(REXGLUE_ENABLE_PERF_COUNTERS)
++  // Majin: lightweight, opt-out Release CSV; leave rendering and scheduling intact.
++  // The stock SDK compiles Profiler::Flip counters out in Release. Its buffered
++  // writer lives in rexruntime and is opened by MajinApp before GPU startup.
++  {
++    static const bool capture = !rex::cvar::GetFlagByName("perf_log_csv").empty();
++    static uint64_t last_frame_tick = 0;
++    static uint32_t captured_frames = 0;
++    constexpr uint32_t kMaxCapturedFrames = 2000000;
++    if (capture && captured_frames < kMaxCapturedFrames) {
++      const uint64_t now = rex::chrono::Clock::QueryHostTickCount();
++      const uint64_t freq = rex::chrono::Clock::QueryHostTickFrequency();
++      if (last_frame_tick && now > last_frame_tick && freq) {
++        const uint64_t delta = now - last_frame_tick;
++        rex::perf::SetCounter(rex::perf::CounterId::kFrameTimeUs,
++            static_cast<int64_t>(delta * 1000000 / freq));
++        rex::perf::SetCounter(rex::perf::CounterId::kFps,
++            static_cast<int64_t>(freq / delta));
++      }
++      last_frame_tick = now;
++      rex::perf::ResetFrameCounters();
++      rex::perf::WriteCsvFrame();
++      if (++captured_frames == kMaxCapturedFrames) {
++        REXGPU_WARN("[Majin performance] Frame capture reached 2000000 rows and stopped; game continues.");
++      }
++    }
++  }
++#endif
+ #ifdef REXGLUE_ENABLE_PERF_COUNTERS
+   {
+     static uint64_t last_frame_tick = 0;

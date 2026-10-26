@@ -1,0 +1,21 @@
+diff --git a/src/core/logging.cpp b/src/core/logging.cpp
+--- a/src/core/logging.cpp
++++ b/src/core/logging.cpp
+@@ -138,7 +138,7 @@
+   if (name == "gpu") sinks = {std::make_shared<majin::TextureWarningSink>(std::move(sinks))};
+   auto logger = std::make_shared<spdlog::logger>(name, sinks.begin(), sinks.end());
+   logger->set_level(ResolveCategoryLevel(name));
+-  logger->flush_on(g_config.flush_level);
++  logger->flush_on(name == "gpu" ? majin::TextureFlushLevel(g_config.flush_level) : g_config.flush_level);
+   spdlog::register_logger(logger);
+   return logger;
+ }
+@@ -186,7 +186,7 @@
+       if (!entry.logger)
+         continue;
+       entry.logger->set_level(ResolveCategoryLevel(entry.name));
+-      entry.logger->flush_on(config.flush_level);
++      entry.logger->flush_on(entry.name == "gpu" ? majin::TextureFlushLevel(config.flush_level) : config.flush_level);
+       if (g_config.category_levels.count(entry.name))
+         entry.has_explicit_level = true;
+     }

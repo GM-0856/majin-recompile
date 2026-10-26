@@ -1,0 +1,25 @@
+{
+  "Purpose": "Owner-supplied scenery-only launcher background, retained logo and generated M icon",
+  "CodeLicenseApplies": false,
+  "Files": [
+    {
+      "Path": "assets/launcher/background.png",
+      "SHA256": "8D6FB2322C69447AC33587E9784ABA10D9DD1D74C7773151D423EF2D98025427"
+    },
+    {
+      "Path": "assets/launcher/logo.png",
+      "SHA256": "CCA30240C9F1E79E5CCCD562B4780C9EE48009298FA2A9F4A2179B6B6EB49D6D"
+    },
+    {
+      "Path": "assets/launcher/majin-fk.ico",
+      "SHA256": "6D8E11AD408FD14F0EF7DE5FCF37DC7CBC1ADF64BB959B0A95ED71E18AF38AE3"
+    }
+  ],
+  "SourceFiles": [
+    {
+      "Path": "assets/launcher/icon-source.png",
+      "SHA256": "10672B6A31A2745A7A4D6A169ABB417D789865C1F2F4AA239AAF0B86CC59CBE5"
+    }
+  ],
+  "Provenance": "assets/launcher/README.md"
+}
