@@ -6,70 +6,70 @@
       "License": "LGPL-2.1-or-later",
       "SDKSourcePath": "thirdparty/FFmpeg/LICENSE.md",
       "NoticePath": "LICENSES/dependencies/FFmpeg/LICENSE.md",
-      "SHA256": "ede44cb106760b85e1773df347324d5cc29622f058f0c986ae1fa857a6febc3b"
+      "SHA256": "cb48bf09a11f5fb576cddb0431c8f5ed0a60157a9ec942adffc13907cbe083f2"
     },
     {
       "Component": "FFmpeg",
       "License": "LGPL-2.1-or-later",
       "SDKSourcePath": "thirdparty/FFmpeg/COPYING.LGPLv2.1",
       "NoticePath": "LICENSES/dependencies/FFmpeg/COPYING.LGPLv2.1",
-      "SHA256": "92a759ec0febde4750821736bbde642a3b835c0604fc81bee62f9e428f86981f"
+      "SHA256": "b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe"
     },
     {
       "Component": "FFmpeg",
       "License": "upstream optional GPL terms",
       "SDKSourcePath": "thirdparty/FFmpeg/COPYING.GPLv2",
       "NoticePath": "LICENSES/dependencies/FFmpeg/COPYING.GPLv2",
-      "SHA256": "189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b"
+      "SHA256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
     },
     {
       "Component": "FFmpeg",
       "License": "upstream optional GPL terms",
       "SDKSourcePath": "thirdparty/FFmpeg/COPYING.GPLv3",
       "NoticePath": "LICENSES/dependencies/FFmpeg/COPYING.GPLv3",
-      "SHA256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b"
+      "SHA256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
     },
     {
       "Component": "FFmpeg",
       "License": "upstream optional LGPL terms",
       "SDKSourcePath": "thirdparty/FFmpeg/COPYING.LGPLv3",
       "NoticePath": "LICENSES/dependencies/FFmpeg/COPYING.LGPLv3",
-      "SHA256": "ea7d049c7705dc13afc202dd18e1827f3484f8212fd3fa7b82fc4a0c363432c9"
+      "SHA256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
     },
     {
       "Component": "libmspack",
       "License": "LGPL-2.1-only",
       "SDKSourcePath": "thirdparty/libmspack/libmspack/COPYING.LIB",
       "NoticePath": "LICENSES/dependencies/libmspack/COPYING.LIB",
-      "SHA256": "885a03f54b157961236f46843e79972abfcd6890b6cbb368bc7eca328ff95a12"
+      "SHA256": "a190dc9c8043755d90f8b0a75fa66b9e42d4af4c980bf5ddc633f0124db3cee7"
     },
     {
       "Component": "fmt",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/fmt/LICENSE",
       "NoticePath": "LICENSES/dependencies/fmt/LICENSE",
-      "SHA256": "25b5db04aa6070c12ac518b91cbd0a59725c050ecb091456e6ebc3d3eeb369cf"
+      "SHA256": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8"
     },
     {
       "Component": "spdlog",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/spdlog/LICENSE",
       "NoticePath": "LICENSES/dependencies/spdlog/LICENSE",
-      "SHA256": "d8cfaae20761042ac00dff862a1a9f31a437cbe337ea9aa8c13285222b7086c5"
+      "SHA256": "d678c20826e1392578508e1c78649a1e3c31bda05ef4388d967dbd654461b140"
     },
     {
       "Component": "simde",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/simde/COPYING",
       "NoticePath": "LICENSES/dependencies/simde/COPYING",
-      "SHA256": "83e48417dd53d380432ca08c1aabc35af5a8b8d4cac037f066510d0bcda8f2c0"
+      "SHA256": "75ce0a8c5a7bff42fbd6f8f3b469b518132132c4f4948fb8d02b1ccb5d0df9d8"
     },
     {
       "Component": "utfcpp",
       "License": "BSL-1.0",
       "SDKSourcePath": "thirdparty/utfcpp/LICENSE",
       "NoticePath": "LICENSES/dependencies/utfcpp/LICENSE",
-      "SHA256": "beb8e42e9d6b4284e03304d05a81a0755200a965fc8d0a5e0aea1e84cf805d6e"
+      "SHA256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
     },
     {
       "Component": "tomlplusplus",
@@ -104,84 +104,84 @@
       "License": "MIT",
       "SDKSourcePath": "thirdparty/o1heap/LICENSE",
       "NoticePath": "LICENSES/dependencies/o1heap/LICENSE",
-      "SHA256": "5ce68de7ce0f15f934746a70ead3cf9999ed902443554648801e4230638c503a"
+      "SHA256": "9b853befdac9b2907131427795b66e0dbfdd0cfa8ecd25a58167893b8c1f0f4d"
     },
     {
       "Component": "imgui",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/imgui/LICENSE.txt",
       "NoticePath": "LICENSES/dependencies/imgui/LICENSE.txt",
-      "SHA256": "55e058cc5899e6077a819ad1005d6d1f4528f65ae100795c9692f9fa6525a8ce"
+      "SHA256": "c80c5789748d955c4a650562baa0d750494e2c7128c2ca66aaebe2e3c4e198bf"
     },
     {
       "Component": "sdl3",
       "License": "Zlib",
       "SDKSourcePath": "thirdparty/sdl3/LICENSE.txt",
       "NoticePath": "LICENSES/dependencies/sdl3/LICENSE.txt",
-      "SHA256": "f4c406cd23df8e2ea3e8bb1af62f15cb6b2439e4e5385828cf90301baea4d944"
+      "SHA256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd"
     },
     {
       "Component": "sdl3-hidapi",
       "License": "upstream license selection",
       "SDKSourcePath": "thirdparty/sdl3/src/hidapi/LICENSE.txt",
       "NoticePath": "LICENSES/dependencies/sdl3-hidapi/LICENSE.txt",
-      "SHA256": "ece65294d852f2f32a291ed1c2b6cddd57a5630e37626aa02c80cd62eed6f222"
+      "SHA256": "7d3b087c34f35d4d538e3bcddd1ff8f66e92f9ef336881999482800ddf840913"
     },
     {
       "Component": "sdl3-hidapi",
       "License": "BSD alternative",
       "SDKSourcePath": "thirdparty/sdl3/src/hidapi/LICENSE-bsd.txt",
       "NoticePath": "LICENSES/dependencies/sdl3-hidapi/LICENSE-bsd.txt",
-      "SHA256": "b1a506483de4fc32a73568370aa248bf6c5f820b5e2891ca3f29b8844ea6bf33"
+      "SHA256": "30eb1bef29b46f8ba7ab8b416035dbd93cb034a45481dd97815b944284582cd2"
     },
     {
       "Component": "sdl3-hidapi",
       "License": "original alternative",
       "SDKSourcePath": "thirdparty/sdl3/src/hidapi/LICENSE-orig.txt",
       "NoticePath": "LICENSES/dependencies/sdl3-hidapi/LICENSE-orig.txt",
-      "SHA256": "2a594f88505cd994559bba97b6ca6f81601536f36d980af51e312c8ba2d282e1"
+      "SHA256": "fb5436aa63d1b71a8dfbf74ecaf1a5b4e1ec4df7f80074d11fec99284f69ca5f"
     },
     {
       "Component": "sdl3-hidapi",
       "License": "GPL-3.0 alternative",
       "SDKSourcePath": "thirdparty/sdl3/src/hidapi/LICENSE-gpl3.txt",
       "NoticePath": "LICENSES/dependencies/sdl3-hidapi/LICENSE-gpl3.txt",
-      "SHA256": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b"
+      "SHA256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
     },
     {
       "Component": "sdl3-yuv2rgb",
       "License": "BSD-2-Clause",
       "SDKSourcePath": "thirdparty/sdl3/src/video/yuv2rgb/LICENSE",
       "NoticePath": "LICENSES/dependencies/sdl3-yuv2rgb/LICENSE",
-      "SHA256": "577769384d44f033ec1ccc28393f25055981fc3aecfeab87c8ed44810473277d"
+      "SHA256": "f7d74004cc75778cae46c5f0139f244d67c07ef64cf51937e8272352197dcb18"
     },
     {
       "Component": "cli11",
       "License": "BSD-3-Clause",
       "SDKSourcePath": "thirdparty/cli11/LICENSE",
       "NoticePath": "LICENSES/dependencies/cli11/LICENSE",
-      "SHA256": "551084a174f9cf71cb520c69f88271d4b2e8b61f5af2f5e18eab74397b0cac8a"
+      "SHA256": "3a70a5dffdaefe4c434660a8270f679ae18dd3c34208fb0b461a665bfcfe3e97"
     },
     {
       "Component": "tracy",
       "License": "BSD-3-Clause",
       "SDKSourcePath": "thirdparty/tracy/LICENSE",
       "NoticePath": "LICENSES/dependencies/tracy/LICENSE",
-      "SHA256": "482a8eec0bf61f2ddabafcd6441c97a3b123c08bb2bba1423dd9bd79dbf57b7b"
+      "SHA256": "16f7df4828bd89c880c17dd2f45e834b754b6d5e8c9a9ee886af1be4b89475ca"
     },
     {
       "Component": "inja",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/inja/LICENSE",
       "NoticePath": "LICENSES/dependencies/inja/LICENSE",
-      "SHA256": "30dea0cf481edf517a6565bd754bc8bd0597b86e8a184baa9164afa6c9c93f31"
+      "SHA256": "ebc4a262d03d4b914e031060c163095deda0d9767ac6ce7758b98293e19591b3"
     },
     {
       "Component": "nlohmann-json",
       "License": "MIT",
       "SDKSourcePath": "thirdparty/inja/third_party/include/nlohmann/LICENSE.MIT",
       "NoticePath": "LICENSES/dependencies/nlohmann-json/LICENSE.MIT",
-      "SHA256": "4609015b22c1844c015430ce34726e2a029442cafcbe10b52ca0b26a9d46a988"
+      "SHA256": "c983d69523377819db3c377b390d5644f5ec53bec9b7c4a0f1ed893bb743d045"
     },
     {
       "Component": "disruptorplus",
@@ -212,15 +212,16 @@
       "License": "Original embedded notice",
       "SDKSourcePath": "thirdparty/renderdoc/renderdoc_app.h",
       "NoticePath": "LICENSES/dependencies/renderdoc/SOURCE-NOTICE.txt",
-      "SHA256": "a505b71c2a8cd56c8ae8bd480c1068d9cbe47591b12ffc6f45114fe7da6fb615"
+      "SHA256": "a2987b15ec4b4d9a3ce74ebac71e67c06611dc3c5bf0ce4238833f52440f16ac"
     },
     {
       "Component": "dxbc",
       "License": "Original embedded notice",
       "SDKSourcePath": "thirdparty/dxbc/DXBCChecksum.cpp",
       "NoticePath": "LICENSES/dependencies/dxbc/SOURCE-NOTICE.txt",
-      "SHA256": "44a974411010468f758627cdce0b42c6fda441389e4e88fed95673444841d2d0"
+      "SHA256": "aeb6d64b11d48e0f55cf70e37131224018d6dcbead99fe5cba775be89a4c2d5b"
     }
   ],
-  "Scope": "Notice inventory, not a statement that corresponding-source or binary provenance review is complete"
+  "Scope": "Notice inventory, not a statement that corresponding-source or binary provenance review is complete",
+  "NoticeStorage": "LF line endings; SHA256 fingerprints the copied notice, retaining the complete upstream license text."
 }
